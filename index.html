@@ -15,6 +15,10 @@
       --accent-color: #3b5bdb;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-color);
@@ -27,6 +31,7 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding-right: 120px; /* Make space for the fixed quick-nav */
     }
 
     h1 {
@@ -44,11 +49,55 @@
       gap: 1rem;
       margin-top: 2rem;
       margin-bottom: 1rem;
+      scroll-margin-top: 2rem; /* Offset for smooth scroll positioning */
     }
 
     h2 {
       font-size: 1.5rem;
       margin: 0;
+      color: var(--accent-color);
+    }
+
+    /* Fixed Quick Navigation Sidebar */
+    .quick-nav {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      padding: 0.75rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-color);
+      z-index: 100;
+    }
+
+    .quick-nav-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin-bottom: 0.25rem;
+      padding-left: 0.5rem;
+    }
+
+    .quick-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .quick-nav a:hover {
+      background-color: var(--hover-bg);
       color: var(--accent-color);
     }
 
@@ -266,17 +315,40 @@
     .modal-nav.next {
       right: 0.8rem;
     }
+
+    @media (max-width: 900px) {
+      .container {
+        padding-right: 0;
+      }
+      .quick-nav {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+      .quick-nav-title {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
+
+<!-- Quick Navigation Sidebar -->
+<nav class="quick-nav" aria-label="Quick Navigation">
+  <div class="quick-nav-title">Jump to</div>
+  <a href="#sour-section">Sour</a>
+  <a href="#barrel-aged-section">Barrel Aged</a>
+</nav>
 
 <div class="container">
   <h1>Beer Inventory</h1>
 
   <!-- SOUR SECTION -->
-  <div class="section-header">
-    <h2>SOUR</h2>
-    <input type="text" class="table-search-box" data-table="sour-table" placeholder="Search SOUR table..." />
+  <div id="sour-section" class="section-header">
+    <h2>Sour</h2>
+    <input type="text" class="table-search-box" data-table="sour-table" placeholder="Search Sour table..." />
   </div>
   <div class="table-container">
     <table id="sour-table" class="sortable">
@@ -358,7 +430,7 @@
   </div>
 
   <!-- BARREL AGED SECTION -->
-  <div class="section-header">
+  <div id="barrel-aged-section" class="section-header">
     <h2>Barrel Aged</h2>
     <input type="text" class="table-search-box" data-table="ba-table" placeholder="Search Barrel Aged table..." />
   </div>
