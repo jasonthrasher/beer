@@ -29,43 +29,43 @@
       margin: 0 auto;
     }
 
-    .header-bar {
+    h1 {
+      font-size: 2.25rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: 2.25rem;
-      margin: 0;
-    }
-
-    .search-box {
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      width: 100%;
-      max-width: 320px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .search-box:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
 
     h2 {
       font-size: 1.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      margin: 0;
       color: var(--accent-color);
+    }
+
+    .table-search-box {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 280px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .table-search-box:focus, .col-filter:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
     }
 
     .table-container {
@@ -84,7 +84,7 @@
     }
 
     th, td {
-      padding: 0.75rem 1rem;
+      padding: 0.6rem 0.8rem;
       border-bottom: 1px solid var(--border-color);
       vertical-align: middle;
     }
@@ -92,30 +92,48 @@
     th {
       background-color: var(--header-bg);
       font-weight: 600;
-      cursor: pointer;
       user-select: none;
       position: relative;
       white-space: nowrap;
     }
 
-    th:hover {
-      background-color: #e9ecef;
+    .sort-label {
+      cursor: pointer;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 0.4rem;
+    }
+
+    .sort-label:hover {
+      color: var(--accent-color);
+    }
+
+    /* Column filter inputs */
+    .col-filter {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      outline: none;
+      font-weight: normal;
     }
 
     /* Sort direction indicators */
-    th[role="columnheader"]::after {
+    th[role="columnheader"] .sort-label::after {
       content: ' \2195';
       opacity: 0.3;
       font-size: 0.8em;
     }
 
-    th[aria-sort="ascending"]::after {
+    th[aria-sort="ascending"] .sort-label::after {
       content: ' \2191';
       opacity: 1;
       color: var(--accent-color);
     }
 
-    th[aria-sort="descending"]::after {
+    th[aria-sort="descending"] .sort-label::after {
       content: ' \2193';
       opacity: 1;
       color: var(--accent-color);
@@ -143,11 +161,11 @@
       border: 1px solid var(--border-color);
     }
 
-    .no-sort {
+    .no-sort .sort-label {
       cursor: default;
     }
 
-    .no-sort::after {
+    .no-sort .sort-label::after {
       content: '' !important;
     }
   </style>
@@ -155,23 +173,24 @@
 <body>
 
 <div class="container">
-  <div class="header-bar">
-    <h1>Beer Inventory</h1>
-    <input type="text" id="filterInput" class="search-box" placeholder="Filter beers, types, boxes..." />
-  </div>
+  <h1>Beer Inventory</h1>
 
-  <h2>SOUR</h2>
+  <!-- SOUR SECTION -->
+  <div class="section-header">
+    <h2>SOUR</h2>
+    <input type="text" class="table-search-box" data-table="sour-table" placeholder="Search SOUR table..." />
+  </div>
   <div class="table-container">
-    <table class="sortable">
+    <table id="sour-table" class="sortable">
       <thead>
         <tr>
-          <th>mfg</th>
-          <th>bottle</th>
-          <th>type</th>
-          <th data-sort-method="number">Qty</th>
-          <th class="no-sort">Image</th>
-          <th>box</th>
-          <th>disposition</th>
+          <th><span class="sort-label">mfg</span><input type="text" class="col-filter" placeholder="Filter mfg..."></th>
+          <th><span class="sort-label">bottle</span><input type="text" class="col-filter" placeholder="Filter bottle..."></th>
+          <th><span class="sort-label">type</span><input type="text" class="col-filter" placeholder="Filter type..."></th>
+          <th data-sort-method="number"><span class="sort-label">Qty</span><input type="text" class="col-filter" placeholder="Filter Qty..."></th>
+          <th class="no-sort"><span class="sort-label">Image</span></th>
+          <th><span class="sort-label">box</span><input type="text" class="col-filter" placeholder="Filter box..."></th>
+          <th><span class="sort-label">disposition</span><input type="text" class="col-filter" placeholder="Filter disp..."></th>
         </tr>
       </thead>
       <tbody>
@@ -240,18 +259,22 @@
     </table>
   </div>
 
-  <h2>Barrel Aged</h2>
+  <!-- BARREL AGED SECTION -->
+  <div class="section-header">
+    <h2>Barrel Aged</h2>
+    <input type="text" class="table-search-box" data-table="ba-table" placeholder="Search Barrel Aged table..." />
+  </div>
   <div class="table-container">
-    <table class="sortable">
+    <table id="ba-table" class="sortable">
       <thead>
         <tr>
-          <th>mfg</th>
-          <th>bottle</th>
-          <th>type</th>
-          <th data-sort-method="number">Qty</th>
-          <th class="no-sort">Image</th>
-          <th>box</th>
-          <th>disposition</th>
+          <th><span class="sort-label">mfg</span><input type="text" class="col-filter" placeholder="Filter mfg..."></th>
+          <th><span class="sort-label">bottle</span><input type="text" class="col-filter" placeholder="Filter bottle..."></th>
+          <th><span class="sort-label">type</span><input type="text" class="col-filter" placeholder="Filter type..."></th>
+          <th data-sort-method="number"><span class="sort-label">Qty</span><input type="text" class="col-filter" placeholder="Filter Qty..."></th>
+          <th class="no-sort"><span class="sort-label">Image</span></th>
+          <th><span class="sort-label">box</span><input type="text" class="col-filter" placeholder="Filter box..."></th>
+          <th><span class="sort-label">disposition</span><input type="text" class="col-filter" placeholder="Filter disp..."></th>
         </tr>
       </thead>
       <tbody>
@@ -307,26 +330,68 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Initialize Tablesort on all tables
+    // 1. Initialize Tablesort on column header text click
     const tables = document.querySelectorAll('table.sortable');
     tables.forEach(function (table) {
       new Tablesort(table);
     });
 
-    // Filtering Functionality
-    const filterInput = document.getElementById('filterInput');
-    const rows = document.querySelectorAll('tbody tr');
+    // Prevent input box click events from triggering column sorting
+    document.querySelectorAll('.col-filter').forEach(input => {
+      input.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+    });
 
-    filterInput.addEventListener('input', function () {
-      const query = filterInput.value.toLowerCase().trim();
+    // 2. Evaluates table filters (Global table search + Column-specific search)
+    function applyFilters(table) {
+      const tableId = table.id;
+      const globalSearch = document.querySelector(`.table-search-box[data-table="${tableId}"]`)?.value.toLowerCase().trim() || '';
+      const colInputs = table.querySelectorAll('thead .col-filter');
+      const rows = table.querySelectorAll('tbody tr');
 
-      rows.forEach(function (row) {
-        const text = row.textContent.toLowerCase();
-        if (text.includes(query)) {
+      rows.forEach(row => {
+        let matchesGlobal = true;
+        let matchesColumns = true;
+
+        // Check Table-Level Search
+        if (globalSearch) {
+          matchesGlobal = row.textContent.toLowerCase().includes(globalSearch);
+        }
+
+        // Check Column Filters
+        colInputs.forEach(input => {
+          const colIndex = input.closest('th').cellIndex;
+          const filterVal = input.value.toLowerCase().trim();
+          if (filterVal) {
+            const cellText = row.cells[colIndex].textContent.toLowerCase();
+            if (!cellText.includes(filterVal)) {
+              matchesColumns = false;
+            }
+          }
+        });
+
+        // Toggle visibility
+        if (matchesGlobal && matchesColumns) {
           row.classList.remove('hidden-row');
         } else {
           row.classList.add('hidden-row');
         }
+      });
+    }
+
+    // Bind event listeners to all filter input elements
+    document.querySelectorAll('.table-search-box').forEach(input => {
+      input.addEventListener('input', function () {
+        const table = document.getElementById(this.dataset.table);
+        if (table) applyFilters(table);
+      });
+    });
+
+    document.querySelectorAll('.col-filter').forEach(input => {
+      input.addEventListener('input', function () {
+        const table = this.closest('table');
+        if (table) applyFilters(table);
       });
     });
   });
