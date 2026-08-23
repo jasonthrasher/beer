@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beer Inventory</title>
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #212529;
+      --border-color: #dee2e6;
+      --header-bg: #f1f3f5;
+      --hover-bg: #f8f9fa;
+      --accent-color: #3b5bdb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.5;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .table-container {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: var(--header-bg);
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    th:hover {
+      background-color: #e9ecef;
+    }
+
+    /* Sort direction indicators */
+    th[role="columnheader"]::after {
+      content: ' \2195';
+      opacity: 0.3;
+      font-size: 0.8em;
+    }
+
+    th[aria-sort="ascending"]::after {
+      content: ' \2191';
+      opacity: 1;
+      color: var(--accent-color);
+    }
+
+    th[aria-sort="descending"]::after {
+      content: ' \2193';
+      opacity: 1;
+      color: var(--accent-color);
+    }
+
+    tbody tr:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .img-cell {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .beer-img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .no-sort {
+      cursor: default;
+    }
+
+    .no-sort::after {
+      content: '' !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Beer Inventory</h1>
+
+  <h2>SOUR</h2>
+  <div class="table-container">
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>mfg</th>
+          <th>bottle</th>
+          <th>type</th>
+          <th data-sort-method="number">Qty</th>
+          <th class="no-sort">Image</th>
+          <th>box</th>
+          <th>disposition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>The Bruery Terreux</td><td>Blossom’s creek</td><td>Sour blonde ale</td><td>2</td><td><div class="img-cell"><img src="/images/image 8.jpg" alt="Blossom’s creek" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Crush the pint</td><td>Barrel-aged sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 9.jpg" alt="Crush the pint" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Tart of datkness</td><td>Bourbon barrel-aged sour stout</td><td>2</td><td><div class="img-cell"><img src="/images/image 10.jpg" alt="Tart of datkness" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Into the blue</td><td>Oak sour the ale</td><td>2</td><td><div class="img-cell"><img src="/images/image 11.jpg" alt="Into the blue" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Hold the cart</td><td>Sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 14.jpg" alt="Hold the cart" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Onus on us</td><td>Spontaneously-fermented sour blonde</td><td>3</td><td><div class="img-cell"><img src="/images/image 22.jpg" alt="Onus on us" class="beer-img" loading="lazy"></div></td><td>S1, S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Party on, groove!</td><td>Sour rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 24.jpg" alt="Party on, groove!" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Thank you, Mrs. Goodfellow</td><td>Oak barrel-aged sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 29.jpg" alt="Thank you, Mrs. Goodfellow" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Boysenberries are blue</td><td>Oakes sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 32.jpg" alt="Boysenberries are blue" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Myrtillheim</td><td>Oak barrel-aged spontaneously fermented sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 33.jpg" alt="Myrtillheim" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Windowsill</td><td>Sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 34.jpg" alt="Windowsill" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Sour in the rye</td><td>Sour ale aged in oak barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 36.jpg" alt="Sour in the rye" class="beer-img" loading="lazy"></div></td><td>S1</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>oude tart</td><td>Flemish-style red ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 38.jpg" alt="oude tart" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Tart of darkness</td><td>Rum barrel-aged sour stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 39.jpg" alt="Tart of darkness" class="beer-img" loading="lazy"></div></td><td>S2, S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Cordial BBLS</td><td>bourbon barrel-aged sour stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 40.jpg" alt="Cordial BBLS" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Bruer Grog</td><td>Belgian-style honey ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 43.jpg" alt="Bruer Grog" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Pinot apple pop</td><td>Barrel-fermented sparkling saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 44.jpg" alt="Pinot apple pop" class="beer-img" loading="lazy"><img src="/images/image 45.jpg" alt="Pinot apple pop" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Legends aren’t born they’re blended</td><td>Bourbon barrel-aged sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 46.jpg" alt="Legends aren’t born they’re blended" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Tart of darkness: raspberry and vanilla</td><td>Bourbon barrel-aged sour stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 47.jpg" alt="Tart of darkness: raspberry and vanilla" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Cucumber Aku Aku</td><td>Rum barrel-aged tart saison ale</td><td>2</td><td><div class="img-cell"><img src="/images/image 49.jpg" alt="Cucumber Aku Aku" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Lapu Lapu</td><td>Rum barrel-aged triple sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 50.jpg" alt="Lapu Lapu" class="beer-img" loading="lazy"></div></td><td>S2</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Amore amaro</td><td>Fernet barrel & rum barrel-aged sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 51.jpg" alt="Amore amaro" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Aprilcot krisp</td><td>Sour ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 52.jpg" alt="Aprilcot krisp" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Humulus Rueuze</td><td>Dry-hopped Belgian-style sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 54.jpg" alt="Humulus Rueuze" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Juilletistes</td><td>Saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 55.jpg" alt="Juilletistes" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Saison D’Hiver</td><td>Foeder-aged saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 56.jpg" alt="Saison D’Hiver" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Wild grove</td><td>Barrel-aged tart saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 63.jpg" alt="Wild grove" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>La Capilla</td><td>Tequila barrel-aged sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 66.jpg" alt="La Capilla" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Rye have blue dreams</td><td>Sour rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 67.jpg" alt="Rye have blue dreams" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Train to beersel</td><td>Imperial sour blonde ale</td><td>4</td><td><div class="img-cell"><img src="/images/image 68.jpg" alt="Train to beersel" class="beer-img" loading="lazy"></div></td><td>S3, S5</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>The last word</td><td>Gin & chartreuse barrel-aged rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 69.jpg" alt="The last word" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Fuzzy train</td><td>Oak barrel-aged imperial sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 70.jpg" alt="Fuzzy train" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Third course</td><td>Foeder-aged tart ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 71.jpg" alt="Third course" class="beer-img" loading="lazy"></div></td><td>S3</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Nectar keen</td><td>Foeder-aged saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 72.jpg" alt="Nectar keen" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Rueuze</td><td>Oak barrel-aged sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 73.jpg" alt="Rueuze" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Plum runner</td><td>Foeder saison</td><td>1</td><td><div class="img-cell"><img src="/images/image 74.jpg" alt="Plum runner" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Yella bbls</td><td>Blend of sour & imperial stouts</td><td>1</td><td><div class="img-cell"><img src="/images/image 75.jpg" alt="Yella bbls" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Befuddlement</td><td>Oak-aged rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 76.jpg" alt="Befuddlement" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Humulus terreux</td><td>Brettanomyces beer dry-hopped</td><td>1</td><td><div class="img-cell"><img src="/images/image 77.jpg" alt="Humulus terreux" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Sans pagaie: vanilla</td><td>Oak-aged sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 78.jpg" alt="Sans pagaie: vanilla" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Saison breton</td><td>Foeder-aged saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 79.jpg" alt="Saison breton" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Alicante</td><td>French oak puncheons-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 80.jpg" alt="Alicante" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Récolte</td><td>Puncheon-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 81.jpg" alt="Récolte" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>C’est La Vie</td><td>Puncheon-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 82.jpg" alt="C’est La Vie" class="beer-img" loading="lazy"></div></td><td>S4</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Tart of darkness: cherry and vanilla</td><td>Sour stout aged in rum barrela</td><td>1</td><td><div class="img-cell"><img src="/images/image 83.jpg" alt="Tart of darkness: cherry and vanilla" class="beer-img" loading="lazy"></div></td><td>S5</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Hoppy horsey</td><td>Dry-hopped foeder-aged saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 84.jpg" alt="Hoppy horsey" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Muffin train</td><td>Imperial sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 85.jpg" alt="Muffin train" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Brazo Brazo</td><td>American wild ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 86.jpg" alt="Brazo Brazo" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Sans pagaie: reserve</td><td>Imperial sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 87.jpg" alt="Sans pagaie: reserve" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Room for you</td><td>Sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 88.jpg" alt="Room for you" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Heavanilla</td><td>Bourbon barrel-aged sour triple ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 89.jpg" alt="Heavanilla" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Les Ronces</td><td>Sour blonde ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 90.jpg" alt="Les Ronces" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Field horse</td><td>Foeder-aged saison ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 91.jpg" alt="Field horse" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Sour in the rye: peach</td><td>Sour rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 92.jpg" alt="Sour in the rye: peach" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Tart of datkness</td><td>Oak barrel-aged sour stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 93.jpg" alt="Tart of datkness" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Annuel</td><td>Blended sour ale & anniversary ale aged in oak & bourbon barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 94.jpg" alt="Annuel" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>The Bruery Terreux</td><td>Spontanaheim</td><td>Spontaneously fermented sour blonde</td><td>1</td><td><div class="img-cell"><img src="/images/image 97.jpg" alt="Spontanaheim" class="beer-img" loading="lazy"></div></td><td>S6</td><td></td></tr>
+        <tr><td>Rare Barrel</td><td>Hello yellow</td><td>Golden sour beer aged in oak barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 108.jpg" alt="Hello yellow" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>Rare Barrel</td><td>Just for funk</td><td>Golden sour beer aged in oak barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 109.jpg" alt="Just for funk" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>Rare Barrel</td><td>Life is good today</td><td>Golden sour beer aged in oak barrels</td><td>2</td><td><div class="img-cell"><img src="/images/image 110.jpg" alt="Life is good today" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>Rare Barrel</td><td>(Misc)</td><td></td><td>12</td><td><div class="img-cell"><img src="/images/image 112.jpg" alt="(Misc)" class="beer-img" loading="lazy"></div></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Barrel Aged</h2>
+  <div class="table-container">
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>mfg</th>
+          <th>bottle</th>
+          <th>type</th>
+          <th data-sort-method="number">Qty</th>
+          <th class="no-sort">Image</th>
+          <th>box</th>
+          <th>disposition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>The Bruery</td><td>All the leaves</td><td>Rum barrel-aged wheatwine ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 12.jpg" alt="All the leaves" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Luminos</td><td>Blended bourbon barrel-aged golden milk stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 13.jpg" alt="Luminos" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>2econd</td><td>Double barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 15.jpg" alt="2econd" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Three’s cocompany</td><td>Imperial stout</td><td>2</td><td><div class="img-cell"><img src="/images/image 16.jpg" alt="Three’s cocompany" class="beer-img" loading="lazy"></div></td><td>B1, B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Fuego fresa especial</td><td>Blended barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 17.jpg" alt="Fuego fresa especial" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Aloha friday</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 18.jpg" alt="Aloha friday" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>On Tuesdays we brunch</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 19.jpg" alt="On Tuesdays we brunch" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Cobbled together</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 20.jpg" alt="Cobbled together" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Orange you happy I didn’t say coconuts</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 21.jpg" alt="Orange you happy I didn’t say coconuts" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Sending cozy vibes</td><td>Apple brandy barrel-aged wassail-style ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 23.jpg" alt="Sending cozy vibes" class="beer-img" loading="lazy"></div></td><td>B2</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Everything nice</td><td>Bourbon barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 25.jpg" alt="Everything nice" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Abuelita’s super especial</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 26.jpg" alt="Abuelita’s super especial" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Liberty stoutwich</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 27.jpg" alt="Liberty stoutwich" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Three</td><td>Blended bourbon barrel-aged imperial barleywine ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 28.jpg" alt="Three" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Black Tuesday</td><td>Imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 30.jpg" alt="Black Tuesday" class="beer-img" loading="lazy"></div></td><td>B1</td><td></td></tr>
+        <tr><td>The Bruery</td><td>American anthem</td><td>Bourbon barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 31.jpg" alt="American anthem" class="beer-img" loading="lazy"><img src="/images/image 35.jpg" alt="American anthem" class="beer-img" loading="lazy"></div></td><td>B1, B2</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Grey monday</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 37.jpg" alt="Grey monday" class="beer-img" loading="lazy"></div></td><td>B2</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Pasas Picasso</td><td>Double barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 41.jpg" alt="Pasas Picasso" class="beer-img" loading="lazy"></div></td><td>B2</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Because you’re mine</td><td>Blended rum barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 42.jpg" alt="Because you’re mine" class="beer-img" loading="lazy"></div></td><td>B2</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Annuel</td><td>Blended barrel-aged ale</td><td>6</td><td><div class="img-cell"><img src="/images/image 48.jpg" alt="Annuel" class="beer-img" loading="lazy"></div></td><td>B2, B3, B4, B5</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Humulus rye</td><td>Hoppy rye lager</td><td>1</td><td><div class="img-cell"><img src="/images/image 53.jpg" alt="Humulus rye" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>B.B.V.</td><td>Barrel-aged blended ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 57.jpg" alt="B.B.V." class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Rugbrod</td><td>Julebryg-style dark rye ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 58.jpg" alt="Rugbrod" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Jardinier</td><td>Belgian-style pale ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 59.jpg" alt="Jardinier" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>S’more</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 60.jpg" alt="S’more" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>White chocolate</td><td>Bourbon barrel-aged wheat-wine ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 61.jpg" alt="White chocolate" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Ivoire</td><td>Bourbon barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 62.jpg" alt="Ivoire" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Shegöat</td><td>Weizenbock ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 64.jpg" alt="Shegöat" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Black tuesday</td><td>Imperial stout aged in bourbon barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 65.jpg" alt="Black tuesday" class="beer-img" loading="lazy"></div></td><td>B3</td><td></td></tr>
+        <tr><td>The Bruery</td><td>White chocolate: peanut butter cup</td><td>Bourbon barrel-aged wheat-wine ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 95.jpg" alt="White chocolate: peanut butter cup" class="beer-img" loading="lazy"></div></td><td>B4</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Freckles</td><td>Bourbon barrel-aged imperial stout</td><td>1</td><td><div class="img-cell"><img src="/images/image 96.jpg" alt="Freckles" class="beer-img" loading="lazy"></div></td><td>B5</td><td></td></tr>
+        <tr><td>The Bruery</td><td>The spice</td><td>Imperial Stout aged in bourbon barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 98.jpg" alt="The spice" class="beer-img" loading="lazy"></div></td><td>B5</td><td></td></tr>
+        <tr><td>The Bruery</td><td>May flowers</td><td>Imperial Belgian-style golden ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 99.jpg" alt="May flowers" class="beer-img" loading="lazy"></div></td><td>B6</td><td></td></tr>
+        <tr><td>The Bruery</td><td>April showers</td><td>Dry-hopped imperial Belgian-style golden ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 100.jpg" alt="April showers" class="beer-img" loading="lazy"></div></td><td>B7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Dentelle</td><td>Bourbon barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 101.jpg" alt="Dentelle" class="beer-img" loading="lazy"></div></td><td>B7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Not a brownie</td><td>Bourbon barrel-aged ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 102.jpg" alt="Not a brownie" class="beer-img" loading="lazy"></div></td><td>B7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Elvis mash</td><td>Bourbon barrel-aged barleywine-style ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 103.jpg" alt="Elvis mash" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Foster happiness</td><td>Imperial weizenbock ale aged in bourbon barrela</td><td>1</td><td><div class="img-cell"><img src="/images/image 104.jpg" alt="Foster happiness" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>Pistachio mustachio</td><td>Imperial stout aged in bourbon barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 105.jpg" alt="Pistachio mustachio" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>The Berry</td><td>Belgian-style tripel ale</td><td>1</td><td><div class="img-cell"><img src="/images/image 106.jpg" alt="The Berry" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+        <tr><td>The Bruery</td><td>So happy it’s tuesday</td><td>Imperial stout aged in bourbon barrels</td><td>1</td><td><div class="img-cell"><img src="/images/image 107.jpg" alt="So happy it’s tuesday" class="beer-img" loading="lazy"></div></td><td>B5</td><td></td></tr>
+        <tr><td>Allagash</td><td>Curiuex</td><td>Ale aged in oak barrela</td><td>1</td><td><div class="img-cell"><img src="/images/image 111.jpg" alt="Curiuex" class="beer-img" loading="lazy"></div></td><td>S7</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Lightweight sorting library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tables = document.querySelectorAll('table.sortable');
+    tables.forEach(function (table) {
+      new Tablesort(table);
+    });
+  });
+</script>
+
+</body>
+</html>
