@@ -255,8 +255,7 @@
       max-height: 70vh;
       overflow: auto;
       border-radius: 6px;
-      /* Block display prevents flex alignment clipping top/left bounds when scrolling */
-      display: block; 
+      display: block;
       text-align: center;
     }
 
@@ -267,7 +266,6 @@
       border-radius: 6px;
       cursor: zoom-in;
       transition: max-width 0.2s ease, max-height 0.2s ease;
-      /* Centers image horizontally in fit mode, allows natural scroll flow in 100% crop */
       margin: 0 auto;
       display: block;
     }
@@ -375,7 +373,7 @@
     <table id="sour-table" class="sortable">
       <thead>
         <tr>
-          <th>mfg</th>
+          <th>Producer</th>
           <th>bottle</th>
           <th>type</th>
           <th data-sort-method="number">Qty</th>
@@ -459,7 +457,7 @@
     <table id="ba-table" class="sortable">
       <thead>
         <tr>
-          <th>mfg</th>
+          <th>Producer</th>
           <th>bottle</th>
           <th>type</th>
           <th data-sort-method="number">Qty</th>
