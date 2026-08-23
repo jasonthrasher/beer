@@ -157,6 +157,13 @@
       object-fit: contain;
       border-radius: 4px;
       border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .beer-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
     .no-sort .sort-label {
@@ -165,6 +172,113 @@
 
     .no-sort .sort-label::after {
       content: '' !important;
+    }
+
+    /* Fly-out Modal Styles */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .image-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content-wrapper {
+      position: relative;
+      background: var(--card-bg);
+      padding: 1.5rem 3.5rem;
+      border-radius: 12px;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+
+    .image-modal.active .modal-content-wrapper {
+      transform: scale(1);
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .modal-caption {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.8rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--text-color);
+    }
+
+    /* Nav Buttons */
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      font-size: 1.5rem;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .modal-nav:hover {
+      background: var(--accent-color);
+      color: #fff;
+      border-color: var(--accent-color);
+    }
+
+    .modal-nav.prev {
+      left: 0.8rem;
+    }
+
+    .modal-nav.next {
+      right: 0.8rem;
     }
   </style>
 </head>
@@ -323,22 +437,36 @@
   </div>
 </div>
 
+<!-- Image Fly-out Modal -->
+<div id="image-modal" class="image-modal">
+  <div class="modal-content-wrapper">
+    <span class="modal-close">&times;</span>
+    <button class="modal-nav prev" id="modal-prev" aria-label="Previous image">&#10094;</button>
+    <img id="modal-img" class="modal-img" src="" alt="Enlarged view">
+    <button class="modal-nav next" id="modal-next" aria-label="Next image">&#10095;</button>
+    <div id="modal-caption" class="modal-caption"></div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Tablesort
     const tables = document.querySelectorAll('table.sortable');
     tables.forEach(function (table) {
       new Tablesort(table);
     });
 
+    // Prevent column filter clicks from triggering table sorting
     document.querySelectorAll('.col-filter').forEach(input => {
       input.addEventListener('click', function (e) {
         e.stopPropagation();
       });
     });
 
+    // Table search and column filter functionality
     function applyFilters(table) {
       const tableId = table.id;
       const globalSearch = document.querySelector(`.table-search-box[data-table="${tableId}"]`)?.value.toLowerCase().trim() || '';
@@ -384,6 +512,92 @@
         const table = this.closest('table');
         if (table) applyFilters(table);
       });
+    });
+
+    // Modal / Fly-out image viewer logic
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalCaption = document.getElementById('modal-caption');
+    const closeBtn = document.querySelector('.modal-close');
+    const prevBtn = document.getElementById('modal-prev');
+    const nextBtn = document.getElementById('modal-next');
+
+    let visibleImages = [];
+    let currentIndex = -1;
+
+    function getVisibleImages() {
+      // Get images from table rows that aren't hidden by search/filter
+      return Array.from(document.querySelectorAll('.beer-img')).filter(img => {
+        const tr = img.closest('tr');
+        return tr && !tr.classList.contains('hidden-row');
+      });
+    }
+
+    function updateModalImage(index) {
+      if (index >= 0 && index < visibleImages.length) {
+        currentIndex = index;
+        const targetImg = visibleImages[currentIndex];
+        modalImg.src = targetImg.src;
+        modalCaption.textContent = targetImg.alt || 'Beer Image';
+      }
+    }
+
+    document.querySelectorAll('.beer-img').forEach(img => {
+      img.addEventListener('click', function () {
+        visibleImages = getVisibleImages();
+        currentIndex = visibleImages.indexOf(this);
+        
+        if (currentIndex !== -1) {
+          updateModalImage(currentIndex);
+          modal.classList.add('active');
+        }
+      });
+    });
+
+    function showPrev() {
+      if (visibleImages.length === 0) return;
+      const newIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+      updateModalImage(newIndex);
+    }
+
+    function showNext() {
+      if (visibleImages.length === 0) return;
+      const newIndex = (currentIndex + 1) % visibleImages.length;
+      updateModalImage(newIndex);
+    }
+
+    prevBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showPrev();
+    });
+
+    nextBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showNext();
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('active')) return;
+      
+      if (e.key === 'Escape') {
+        closeModal();
+      } else if (e.key === 'ArrowLeft') {
+        showPrev();
+      } else if (e.key === 'ArrowRight') {
+        showNext();
+      }
     });
   });
 </script>
