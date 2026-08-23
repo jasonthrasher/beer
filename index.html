@@ -49,7 +49,7 @@
       gap: 1rem;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      scroll-margin-top: 2rem; /* Offset for smooth scroll positioning */
+      scroll-margin-top: 2rem;
     }
 
     h2 {
@@ -250,11 +250,32 @@
       transform: scale(1);
     }
 
+    .modal-img-container {
+      max-width: 80vw;
+      max-height: 70vh;
+      overflow: auto;
+      border-radius: 6px;
+      /* Block display prevents flex alignment clipping top/left bounds when scrolling */
+      display: block; 
+      text-align: center;
+    }
+
     .modal-img {
       max-width: 100%;
       max-height: 70vh;
       object-fit: contain;
       border-radius: 6px;
+      cursor: zoom-in;
+      transition: max-width 0.2s ease, max-height 0.2s ease;
+      /* Centers image horizontally in fit mode, allows natural scroll flow in 100% crop */
+      margin: 0 auto;
+      display: block;
+    }
+
+    .modal-img.cropped-100 {
+      max-width: none;
+      max-height: none;
+      cursor: zoom-out;
     }
 
     .modal-caption {
@@ -500,7 +521,9 @@
   <div class="modal-content-wrapper">
     <span class="modal-close">&times;</span>
     <button class="modal-nav prev" id="modal-prev" aria-label="Previous image">&#10094;</button>
-    <img id="modal-img" class="modal-img" src="" alt="Enlarged view">
+    <div class="modal-img-container">
+      <img id="modal-img" class="modal-img" src="" alt="Enlarged view">
+    </div>
     <button class="modal-nav next" id="modal-next" aria-label="Next image">&#10095;</button>
     <div id="modal-caption" class="modal-caption"></div>
   </div>
@@ -550,6 +573,10 @@
     let visibleImages = [];
     let currentIndex = -1;
 
+    function resetCrop() {
+      modalImg.classList.remove('cropped-100');
+    }
+
     function getVisibleImages() {
       return Array.from(document.querySelectorAll('.beer-img')).filter(img => {
         const tr = img.closest('tr');
@@ -561,10 +588,17 @@
       if (index >= 0 && index < visibleImages.length) {
         currentIndex = index;
         const targetImg = visibleImages[currentIndex];
+        resetCrop();
         modalImg.src = targetImg.src;
         modalCaption.textContent = targetImg.alt || 'Beer Image';
       }
     }
+
+    // Toggle 100% crop state when clicking modal image
+    modalImg.addEventListener('click', function (e) {
+      e.stopPropagation();
+      modalImg.classList.toggle('cropped-100');
+    });
 
     document.querySelectorAll('.beer-img').forEach(img => {
       img.addEventListener('click', function () {
@@ -601,6 +635,7 @@
     });
 
     function closeModal() {
+      resetCrop();
       modal.classList.remove('active');
     }
 
